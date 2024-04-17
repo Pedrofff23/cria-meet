@@ -12,10 +12,10 @@ import MeetingModal from "./MeetingModal";
 import { useToast } from "./ui/use-toast";
 import { Textarea } from "./ui/textarea";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
-import { pt } from 'date-fns/locale/pt';
+import { pt } from "date-fns/locale/pt";
+import { Input } from "./ui/input";
 
 registerLocale("pt", pt);
-
 
 const initialValues = {
     dateTime: new Date(),
@@ -24,8 +24,6 @@ const initialValues = {
 };
 
 const MeetingTypeList = () => {
-
-  
     const router = useRouter();
     const [meetingState, setMeetingState] = useState<
         | "isScheduleMeeting"
@@ -91,30 +89,30 @@ const MeetingTypeList = () => {
         <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
             <HomeCard
                 img="/icons/add-meeting.svg"
-                title="New Meeting"
-                description="Start an instant meeting"
+                title="Nova reunião"
+                description="Comece uma reunião instantânea"
                 handleClick={() => setMeetingState("isInstantMeeting")}
             />
             <HomeCard
                 img="/icons/join-meeting.svg"
-                title="Join Meeting"
-                description="via invitation link"
+                title="Entrar em uma reunião"
+                description="Usando um link de convite"
                 className="bg-blue-1"
                 handleClick={() => setMeetingState("isJoiningMeeting")}
             />
             <HomeCard
                 img="/icons/schedule.svg"
-                title="Schedule Meeting"
-                description="Plan your meeting"
+                title="Marcar reunião"
+                description="Marque a data da sua reunião"
                 className="bg-purple-1"
                 handleClick={() => setMeetingState("isScheduleMeeting")}
             />
             <HomeCard
                 img="/icons/recordings.svg"
-                title="View Recordings"
-                description="Meeting Recordings"
+                title="Gravações"
+                description="Gravações de reuniões passadas"
                 className="bg-yellow-1"
-                handleClick={() => router.push("/recordings")}
+                handleClick={() => router.push("/gravacoes")}
             />
 
             {!callDetail ? (
@@ -182,7 +180,15 @@ const MeetingTypeList = () => {
                 className="text-center"
                 buttonText="Join Meeting"
                 handleClick={() => router.push(values.link)}
-            ></MeetingModal>
+            >
+                <Input
+                    placeholder="Link da Reunião"
+                    className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    onChange={(e) =>
+                        setValues({ ...values, link: e.target.value })
+                    }
+                />
+            </MeetingModal>
 
             <MeetingModal
                 isOpen={meetingState === "isInstantMeeting"}
